@@ -1,3 +1,31 @@
+/**
+ Fonts
+*/
+
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 300;
+	src: local('Lato Light'), local('Lato-Light'), url(http://fonts.gstatic.com/s/lato/v11/KT3KS9Aol4WfR6Vas8kNcg.woff) format('woff');
+}
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Lato Regular'), local('Lato-Regular'), url(http://fonts.gstatic.com/s/lato/v11/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+}
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Lato Bold'), local('Lato-Bold'), url(http://fonts.gstatic.com/s/lato/v11/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
+}
+
+
+
+
+
 * {
 	margin: 0;
 	padding: 0;
@@ -10,8 +38,10 @@ body {
 #calendar {
 	@perspective-val: 860px;
 
+	font-family: 'Lato';
+
 	width: 560px;
-	height: 600px;
+	height: 630px;
 	position: relative;
 	margin: 100px auto ;
 	text-align: center;
@@ -20,6 +50,7 @@ body {
 
 	/* animation prop */
 	-webkit-perspective: @perspective-val;
+	-moz-perspective: @perspective-val;
 	perspective: @perspective-val;
 
 	-webkit-user-select: none;
@@ -35,6 +66,8 @@ body {
 	position: relative;
 	background: white;
 	box-shadow: 0 3px 19px -12px rgba(81, 64, 49, 0.6);
+
+
 }
 
 
@@ -107,8 +140,8 @@ body {
 	line-height: 30px;
 	background: #883b61;
 	color: #fff;
-	font-size: 12px;
-	font-weight: 700;
+	font-size: 10px;
+	font-weight: 400;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 
@@ -128,10 +161,10 @@ body {
 
 	& > div {
 		border-right: 1px solid #ddd;
-		border-bottom: 1px solid #ddd;		
+		border-bottom: 1px solid #ddd;
 		width: 13%;
 		padding: 4% 1% 0 0;
-		font-size: 22px;
+		font-size: 20px;
 		font-weight: 700;
 		color: #ceb1bf;
 		text-align: right;
@@ -156,7 +189,11 @@ body {
 		}
 		&.active {
 			cursor: pointer;
-		}		
+
+			&:hover {
+				box-shadow: inset 0 0 0px 2px #03A9F4;
+			}
+		}
 	}
 }
 .invisible {
@@ -167,20 +204,24 @@ body {
 
 .rotate-x (@deg: 10deg) {
 	-webkit-transform: rotateX(@deg);
+	-moz-transform: rotateX(@deg);
 	-ms-transform: rotateX(@deg);
 	transform: rotateX(@deg);
 }
 
 .animation-rotate-x ( @deg: 180deg, @duration: 1s, @func: ease-out, @delay: 0.1s){
 	-webkit-backface-visibility:hidden;
+	-moz-backface-visibility:hidden;
 	backface-visibility:hidden;
 
 	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 
 	.rotate-x(@deg);
 
 	-webkit-transition: all @duration  @func @delay;
+	-moz-transition: all @duration  @func @delay;
 	transition: all @duration  @func @delay;
 }
 
