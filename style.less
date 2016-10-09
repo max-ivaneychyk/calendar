@@ -44,10 +44,6 @@ body {
 }
 
 #calendar {
-	@perspective-val: 860px;
-
-	font-family: 'Lato';
-
 	width: 560px;
 	height: 630px;
 	position: relative;
@@ -57,10 +53,8 @@ body {
 	box-shadow: 0 12px 20px -10px rgba(81, 64, 49, 0.6);
 
 	/* animation prop */
-	.prefix(perspective, @perspective-val);
-
+	.prefix(perspective,  860px);
 	.prefix(user-select, none);
-
 }
 
 #cal-wrap {
@@ -107,8 +101,11 @@ body {
 #cal-nav-prev,
 #cal-nav-next {
 	position: absolute;
-	top: 25%;
+	top: 20%;
 	z-index: 10;
+	font-size: 56px;
+	color: white;
+	text-shadow: 0 0 5px black;
 	cursor: pointer;
 }
 
@@ -152,8 +149,7 @@ body {
 	div {
 		float: left;
 		height: 100%;
-		width: 14.28%;
-		width: calc(100% / 7);
+		width: ~'calc( 100% / 7)';
 		position: relative;
 	}
 }
@@ -195,7 +191,7 @@ body {
 			cursor: pointer;
 
 			&:hover {
-				box-shadow: inset 0 0 0px 2px #03A9F4;
+				box-shadow: inset 0 0 0 2px #03A9F4;
 			}
 		}
 	}

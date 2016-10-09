@@ -27,7 +27,6 @@ body {
   background: #F4F1F8;
 }
 #calendar {
-  font-family: 'Lato';
   width: 560px;
   height: 630px;
   position: relative;
@@ -106,8 +105,11 @@ body {
 #cal-nav-prev,
 #cal-nav-next {
   position: absolute;
-  top: 25%;
+  top: 20%;
   z-index: 10;
+  font-size: 56px;
+  color: white;
+  text-shadow: 0 0 5px black;
   cursor: pointer;
 }
 #cal-nav-prev {
@@ -145,8 +147,7 @@ body {
 .cal-list-days div {
   float: left;
   height: 100%;
-  width: 14.28%;
-  width: calc(14.28571429%);
+  width: calc( 100% / 7);
   position: relative;
 }
 .cal-days {
@@ -185,7 +186,7 @@ body {
   cursor: pointer;
 }
 .cal-days > div.active:hover {
-  box-shadow: inset 0 0 0px 2px #03A9F4;
+  box-shadow: inset 0 0 0 2px #03A9F4;
 }
 .invisible {
   visibility: hidden;
