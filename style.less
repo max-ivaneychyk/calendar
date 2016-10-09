@@ -2,19 +2,20 @@
  Fonts
 */
 
-
 @font-face {
 	font-family: 'Lato';
 	font-style: normal;
 	font-weight: 300;
 	src: local('Lato Light'), local('Lato-Light'), url(http://fonts.gstatic.com/s/lato/v11/KT3KS9Aol4WfR6Vas8kNcg.woff) format('woff');
 }
+
 @font-face {
 	font-family: 'Lato';
 	font-style: normal;
 	font-weight: 400;
 	src: local('Lato Regular'), local('Lato-Regular'), url(http://fonts.gstatic.com/s/lato/v11/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
 }
+
 @font-face {
 	font-family: 'Lato';
 	font-style: normal;
@@ -22,9 +23,16 @@
 	src: local('Lato Bold'), local('Lato-Bold'), url(http://fonts.gstatic.com/s/lato/v11/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
 }
 
+// tools
+.prefix (@prop, @val) {
+	-webkit-@{prop}: @val;
+	-moz-@{prop}: @val;
+	-ms-@{prop}: @val;
+	-o-@{prop}: @val;
+		@{prop}: @val;
+};
 
-
-
+// Styles page
 
 * {
 	margin: 0;
@@ -43,33 +51,25 @@ body {
 	width: 560px;
 	height: 630px;
 	position: relative;
-	margin: 100px auto ;
+	margin: 100px auto;
 	text-align: center;
 	font-family: 'Lato', Calibri, Arial, sans-serif;
-	box-shadow: 0 12px 20px -10px rgba(81,64,49,0.6);
+	box-shadow: 0 12px 20px -10px rgba(81, 64, 49, 0.6);
 
 	/* animation prop */
-	-webkit-perspective: @perspective-val;
-	-moz-perspective: @perspective-val;
-	perspective: @perspective-val;
+	.prefix(perspective, @perspective-val);
 
-	-webkit-user-select: none;
-    /* user-select -- это нестандартное свойство */
-    -moz-user-select: none;
-    /* поэтому нужны префиксы */
-    -ms-user-select: none;
-    user-select: none;
+	.prefix(user-select, none);
+
 }
+
 #cal-wrap {
 	width: 560px;
 	height: 600px;
 	position: relative;
 	background: white;
 	box-shadow: 0 3px 19px -12px rgba(81, 64, 49, 0.6);
-
-
 }
-
 
 .cal-header {
 
@@ -77,15 +77,14 @@ body {
 	background-repeat: repeat-x;
 	bottom: 0;
 	position: absolute;
-	height: 100%;	
+	height: 100%;
 	width: 100%;
 
 	/* end */
 
-	@list :		'January',		'February',		'March',		'April',	
-				'May',			'June',			'July',			'August',		
-				'September',	'October',		'November',		'December';
-
+	@list: 'January', 'February', 'March', 'April',
+	'May', 'June', 'July', 'August',
+	'September', 'October', 'November', 'December';
 
 	.generate-month-bg(@i: 1) when (@i =< 12) {
 		@name-month: extract(@list, @i);
@@ -101,7 +100,9 @@ body {
 .cal-content {
 	height: 100%;
 	position: absolute;
-};
+}
+
+;
 
 #cal-nav-prev,
 #cal-nav-next {
@@ -110,17 +111,20 @@ body {
 	z-index: 10;
 	cursor: pointer;
 }
+
 #cal-nav-prev {
-	left: 3%;	
+	left: 3%;
 }
+
 #cal-nav-next {
 	right: 3%;
 }
+
 .cal-nav-month {
 	margin-top: 55%;
 	display: inline-block;
 
-	h2{
+	h2 {
 		position: absolute;
 		margin: -2.4em 0.9em 0 0;
 		right: 0;
@@ -149,7 +153,7 @@ body {
 		float: left;
 		height: 100%;
 		width: 14.28%;
-		width: calc(100%/7);
+		width: calc(100% / 7);
 		position: relative;
 	}
 }
@@ -173,15 +177,15 @@ body {
 		&:nth-of-type(7n) {
 			border-right: none;
 		}
-		&:nth-last-child(1),	
-		&:nth-last-child(2),	
+		&:nth-last-child(1),
+		&:nth-last-child(2),
 		&:nth-last-child(3),
-		&:nth-last-child(4),	
-		&:nth-last-child(5),	
-		&:nth-last-child(6),		
+		&:nth-last-child(4),
+		&:nth-last-child(5),
+		&:nth-last-child(6),
 		&:nth-last-child(7) {
-			border-bottom: none;			
-		}	
+			border-bottom: none;
+		}
 
 		&.no-active {
 			background: rgba(0, 0, 0, 0.08);;
@@ -196,6 +200,7 @@ body {
 		}
 	}
 }
+
 .invisible {
 	visibility: hidden;
 }
@@ -203,26 +208,17 @@ body {
 /* Animation */
 
 .rotate-x (@deg: 10deg) {
-	-webkit-transform: rotateX(@deg);
-	-moz-transform: rotateX(@deg);
-	-ms-transform: rotateX(@deg);
-	transform: rotateX(@deg);
+	.prefix( transform, rotateX(@deg));
 }
 
-.animation-rotate-x ( @deg: 180deg, @duration: 1s, @func: ease-out, @delay: 0.1s){
-	-webkit-backface-visibility:hidden;
-	-moz-backface-visibility:hidden;
-	backface-visibility:hidden;
+.animation-rotate-x ( @deg: 180deg, @duration: 1s, @func: ease-out, @delay: 0.1s) {
 
-	-webkit-transform-style: preserve-3d;
-	-moz-transform-style: preserve-3d;
-	transform-style: preserve-3d;
+	.prefix( backface-visibility, hidden );
+	.prefix( transform-style, preserve-3d );
 
 	.rotate-x(@deg);
 
-	-webkit-transition: all @duration  @func @delay;
-	-moz-transition: all @duration  @func @delay;
-	transition: all @duration  @func @delay;
+	.prefix( transition, all @duration @func @delay);
 }
 
 /**
@@ -232,20 +228,24 @@ body {
 .rotate-up {
 	.rotate-x(-180deg);
 }
+
 .rotate-normal {
 	.rotate-x(0deg);
 }
+
 .rotate-down {
 	.rotate-x(180deg);
 }
+
 /**
 * Animations classes
 */
 @speed: 0.5s;
 
 .animation-up {
-	.animation-rotate-x ( 0deg, @speed, ease-out)
+	.animation-rotate-x (0deg, @speed, ease-out)
 }
+
 .animation-down {
-	.animation-rotate-x ( -180deg, @speed, ease-out)
+	.animation-rotate-x (-180deg, @speed, ease-out)
 }
