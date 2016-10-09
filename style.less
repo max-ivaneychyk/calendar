@@ -1,0 +1,210 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #F4F1F8;
+}
+
+#calendar {
+	@perspective-val: 860px;
+
+	width: 560px;
+	height: 600px;
+	position: relative;
+	margin: 100px auto ;
+	text-align: center;
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	box-shadow: 0 12px 20px -10px rgba(81,64,49,0.6);
+
+	/* animation prop */
+	-webkit-perspective: @perspective-val;
+	perspective: @perspective-val;
+
+	-webkit-user-select: none;
+    /* user-select -- это нестандартное свойство */
+    -moz-user-select: none;
+    /* поэтому нужны префиксы */
+    -ms-user-select: none;
+    user-select: none;
+}
+#cal-wrap {
+	width: 560px;
+	height: 600px;
+	position: relative;
+	background: white;
+	box-shadow: 0 3px 19px -12px rgba(81, 64, 49, 0.6);
+}
+
+
+.cal-header {
+
+	color: #fff;
+	background-repeat: repeat-x;
+	bottom: 0;
+	position: absolute;
+	height: 100%;	
+	width: 100%;
+
+	/* end */
+
+	@list :		'January',		'February',		'March',		'April',	
+				'May',			'June',			'July',			'August',		
+				'September',	'October',		'November',		'December';
+
+
+	.generate-month-bg(@i: 1) when (@i =< 12) {
+		@name-month: extract(@list, @i);
+		// attr
+		&[data-month=@{name-month}] {
+			background: url("images/@{i}.jpg") no-repeat;
+		}
+		.generate-month-bg(@i + 1);
+	}
+	.generate-month-bg();
+}
+
+.cal-content {
+	height: 100%;
+	position: absolute;
+};
+
+#cal-nav-prev,
+#cal-nav-next {
+	position: absolute;
+	top: 25%;
+	z-index: 10;
+	cursor: pointer;
+}
+#cal-nav-prev {
+	left: 3%;	
+}
+#cal-nav-next {
+	right: 3%;
+}
+.cal-nav-month {
+	margin-top: 55%;
+	display: inline-block;
+
+	h2{
+		position: absolute;
+		margin: -2.4em 0.9em 0 0;
+		right: 0;
+		font-size: 40px;
+		border: 3px solid #fff;
+		padding: 5px 20px;
+		font-weight: 100;
+	}
+}
+
+.cal-list-days {
+	margin-top: 53%;
+	padding-left: 2%;
+	padding-right: 2%;
+
+	height: 30px;
+	line-height: 30px;
+	background: #883b61;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+
+	div {
+		float: left;
+		height: 100%;
+		width: 14.28%;
+		width: calc(100%/7);
+		position: relative;
+	}
+}
+
+.cal-days {
+	padding: 3%;
+	width: 94%;
+	background: white;
+
+	& > div {
+		border-right: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;		
+		width: 13%;
+		padding: 4% 1% 0 0;
+		font-size: 22px;
+		font-weight: 700;
+		color: #ceb1bf;
+		text-align: right;
+		display: inline-block;
+
+		&:nth-of-type(7n) {
+			border-right: none;
+		}
+		&:nth-last-child(1),	
+		&:nth-last-child(2),	
+		&:nth-last-child(3),
+		&:nth-last-child(4),	
+		&:nth-last-child(5),	
+		&:nth-last-child(6),		
+		&:nth-last-child(7) {
+			border-bottom: none;			
+		}	
+
+		&.no-active {
+			background: rgba(0, 0, 0, 0.08);;
+			color: #b7b7b7;
+		}
+		&.active {
+			cursor: pointer;
+		}		
+	}
+}
+.invisible {
+	visibility: hidden;
+}
+
+/* Animation */
+
+.rotate-x (@deg: 10deg) {
+	-webkit-transform: rotateX(@deg);
+	-ms-transform: rotateX(@deg);
+	transform: rotateX(@deg);
+}
+
+.animation-rotate-x ( @deg: 180deg, @duration: 1s, @func: ease-out, @delay: 0.1s){
+	-webkit-backface-visibility:hidden;
+	backface-visibility:hidden;
+
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+
+	.rotate-x(@deg);
+
+	-webkit-transition: all @duration  @func @delay;
+	transition: all @duration  @func @delay;
+}
+
+/**
+* Position element classes
+* preper animation
+*/
+.rotate-up {
+	.rotate-x(-180deg);
+}
+.rotate-normal {
+	.rotate-x(0deg);
+}
+.rotate-down {
+	.rotate-x(180deg);
+}
+/**
+* Animations classes
+*/
+@speed: 0.5s;
+
+.animation-up {
+	.animation-rotate-x ( 0deg, @speed, ease-out)
+}
+.animation-down {
+	.animation-rotate-x ( -180deg, @speed, ease-out)
+}

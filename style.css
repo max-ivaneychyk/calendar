@@ -1,0 +1,210 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #F4F1F8;
+}
+#calendar {
+  width: 560px;
+  height: 600px;
+  position: relative;
+  margin: 100px auto ;
+  text-align: center;
+  font-family: 'Lato', Calibri, Arial, sans-serif;
+  box-shadow: 0 12px 20px -10px rgba(81, 64, 49, 0.6);
+  /* animation prop */
+  -webkit-perspective: 860px;
+  perspective: 860px;
+  -webkit-user-select: none;
+  /* user-select -- это нестандартное свойство */
+  -moz-user-select: none;
+  /* поэтому нужны префиксы */
+  -ms-user-select: none;
+  user-select: none;
+}
+#cal-wrap {
+  width: 560px;
+  height: 600px;
+  position: relative;
+  background: white;
+  box-shadow: 0 3px 19px -12px rgba(81, 64, 49, 0.6);
+}
+.cal-header {
+  color: #fff;
+  background-repeat: repeat-x;
+  bottom: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  /* end */
+}
+.cal-header[data-month='January'] {
+  background: url("images/1.jpg") no-repeat;
+}
+.cal-header[data-month='February'] {
+  background: url("images/2.jpg") no-repeat;
+}
+.cal-header[data-month='March'] {
+  background: url("images/3.jpg") no-repeat;
+}
+.cal-header[data-month='April'] {
+  background: url("images/4.jpg") no-repeat;
+}
+.cal-header[data-month='May'] {
+  background: url("images/5.jpg") no-repeat;
+}
+.cal-header[data-month='June'] {
+  background: url("images/6.jpg") no-repeat;
+}
+.cal-header[data-month='July'] {
+  background: url("images/7.jpg") no-repeat;
+}
+.cal-header[data-month='August'] {
+  background: url("images/8.jpg") no-repeat;
+}
+.cal-header[data-month='September'] {
+  background: url("images/9.jpg") no-repeat;
+}
+.cal-header[data-month='October'] {
+  background: url("images/10.jpg") no-repeat;
+}
+.cal-header[data-month='November'] {
+  background: url("images/11.jpg") no-repeat;
+}
+.cal-header[data-month='December'] {
+  background: url("images/12.jpg") no-repeat;
+}
+.cal-content {
+  height: 100%;
+  position: absolute;
+}
+#cal-nav-prev,
+#cal-nav-next {
+  position: absolute;
+  top: 25%;
+  z-index: 10;
+  cursor: pointer;
+}
+#cal-nav-prev {
+  left: 3%;
+}
+#cal-nav-next {
+  right: 3%;
+}
+.cal-nav-month {
+  margin-top: 55%;
+  display: inline-block;
+}
+.cal-nav-month h2 {
+  position: absolute;
+  margin: -2.4em 0.9em 0 0;
+  right: 0;
+  font-size: 40px;
+  border: 3px solid #fff;
+  padding: 5px 20px;
+  font-weight: 100;
+}
+.cal-list-days {
+  margin-top: 53%;
+  padding-left: 2%;
+  padding-right: 2%;
+  height: 30px;
+  line-height: 30px;
+  background: #883b61;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.cal-list-days div {
+  float: left;
+  height: 100%;
+  width: 14.28%;
+  width: calc(14.28571429%);
+  position: relative;
+}
+.cal-days {
+  padding: 3%;
+  width: 94%;
+  background: white;
+}
+.cal-days > div {
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  width: 13%;
+  padding: 4% 1% 0 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ceb1bf;
+  text-align: right;
+  display: inline-block;
+}
+.cal-days > div:nth-of-type(7n) {
+  border-right: none;
+}
+.cal-days > div:nth-last-child(1),
+.cal-days > div:nth-last-child(2),
+.cal-days > div:nth-last-child(3),
+.cal-days > div:nth-last-child(4),
+.cal-days > div:nth-last-child(5),
+.cal-days > div:nth-last-child(6),
+.cal-days > div:nth-last-child(7) {
+  border-bottom: none;
+}
+.cal-days > div.no-active {
+  background: rgba(0, 0, 0, 0.08);
+  color: #b7b7b7;
+}
+.cal-days > div.active {
+  cursor: pointer;
+}
+.invisible {
+  visibility: hidden;
+}
+/* Animation */
+/**
+* Position element classes
+* preper animation
+*/
+.rotate-up {
+  -webkit-transform: rotateX(-180deg);
+  -ms-transform: rotateX(-180deg);
+  transform: rotateX(-180deg);
+}
+.rotate-normal {
+  -webkit-transform: rotateX(0deg);
+  -ms-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+.rotate-down {
+  -webkit-transform: rotateX(180deg);
+  -ms-transform: rotateX(180deg);
+  transform: rotateX(180deg);
+}
+/**
+* Animations classes
+*/
+.animation-up {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: rotateX(0deg);
+  -ms-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+  -webkit-transition: all 0.5s ease-out 0.1s;
+  transition: all 0.5s ease-out 0.1s;
+}
+.animation-down {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: rotateX(-180deg);
+  -ms-transform: rotateX(-180deg);
+  transform: rotateX(-180deg);
+  -webkit-transition: all 0.5s ease-out 0.1s;
+  transition: all 0.5s ease-out 0.1s;
+}
