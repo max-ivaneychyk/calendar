@@ -238,10 +238,16 @@ body {
 */
 @speed: 0.5s;
 
-.animation-up {
+
+.animation-normal {
 	.animation-rotate-x (0deg, @speed, ease-out)
 }
-
+.animation-up {
+	.animation-rotate-x (180deg, @speed, ease-out)
+}
+.animation-full-up {
+	.animation-rotate-x (360deg, @speed, ease-out)
+}
 .animation-down {
 	.animation-rotate-x (-180deg, @speed, ease-out)
 }

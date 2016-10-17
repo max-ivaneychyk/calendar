@@ -32,7 +32,7 @@ function onceEvent(elem, event, handler) {
       handler && handler.call && handler(e);
       elem.removeEventListener(event, onceTrigger);
    })
-};
+}
 
 
 
@@ -135,7 +135,7 @@ Calendar.prototype = {
          var path = str.slice(1, str.length - 1).split('.'); // remove \{  and \} and create array
          return self._searchLatest(self, path);
       });
-      return htmlCode;
+      return htmlCode
    },
    _searchLatest: function searchLatest(ctx, path) {
       ctx = ctx[path.shift()];
@@ -186,7 +186,7 @@ Calendar.prototype = {
          template += this.parser(this.templates.day, {
             dayClass: "cal-day active",
             'dayNum': day,
-            'time': year + '-' + month + '-' + day
+            'time': year + '-' + (month+1) + '-' + day
          });
       }
 
@@ -210,15 +210,20 @@ Calendar.prototype = {
    etatDown: function (month, year) {
       var animation = function (ctx) {
          ctx.headers[0].addClass('animation-down');
-         ctx.headers[1].addClass('rotate-normal');
-
          ctx.footers[1].addClass('rotate-down').addClass('invisible');
+
          setTimeout(function () {
-            ctx.footers[1].addClass('animation-up').removeClass('invisible');
+            ctx.footers[1].addClass('animation-normal').removeClass('invisible');
          }, 0);
+
          onceEvent(ctx.headers[0], ctx.transitionend, function () {
+            ctx.footers[1]
+                .removeClass('animation-normal')
+                .removeClass('rotate-down');
+
             ctx.clear(ctx)
          });
+
          ctx.wrap.insertBefore(ctx.headers[1], ctx.wrap.firstChild);
          ctx.wrap.appendChild(ctx.footers[1]);
       };
@@ -228,15 +233,20 @@ Calendar.prototype = {
    etatUp: function (month, year) {
       var animation = function (ctx) {
          ctx.footers[0].addClass('animation-up');
-         ctx.footers[1].addClass('rotate-normal');
-
          ctx.headers[1].addClass('rotate-down').addClass('invisible');
+
          setTimeout(function () {
-            ctx.headers[1].addClass('animation-up').removeClass('invisible');
+            ctx.headers[1].addClass('animation-full-up').removeClass('invisible');
          }, 0);
+
          onceEvent(ctx.footers[0], ctx.transitionend, function () {
-            ctx.clear(ctx)
+            ctx.headers[1]
+                .removeClass('animation-full-up')
+                .removeClass('rotate-down');
+
+            ctx.clear(ctx);
          });
+
          ctx.wrap.appendChild(ctx.headers[1]);
          ctx.wrap.insertBefore(ctx.footers[1], ctx.wrap.firstChild);
       };
@@ -260,7 +270,15 @@ function Task( calendar ) {
    // task.banner.addClass('cal-banner');
    // calendar.appendChild( task.banner );
 
-   task.data = {};
+   task.data = {
+      '2016': {
+         '10': {
+            '31': {
+               '14:00': 'It is first note..'
+            }
+         }
+      }
+   };
 
    calendar.addEventListener('mousedown', function (e) {
       if( e.target && e.target.hasAttribute('data-time'))
@@ -278,7 +296,17 @@ Task.prototype = {
 
    },
    openDay: function ( date ) {
-      console.log(date)
+      var notes = this.lookForNotes( this.data , date.split('-'));
+
+      console.log(notes);
+   },
+   lookForNotes: function lookForNotes( findInObject, arrKeys ) {
+      var key = arrKeys.shift();
+      findInObject = findInObject[key];
+
+      return   arrKeys.length &&
+               findInObject &&
+               typeof findInObject == "object" ? lookForNotes(findInObject, arrKeys) : findInObject ;
    }
 };
 
