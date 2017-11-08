@@ -1,2 +1,2 @@
 # calendar
-Just calendar / Now it`s not working *
+Simple calendar with 3D animation
